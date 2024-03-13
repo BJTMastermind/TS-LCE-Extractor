@@ -1,0 +1,16 @@
+{
+    "name": "lce-stuff",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/index.ts",
+    "scripts": {
+        "build": "npx tsc --project ./tsconfig.build.json",
+        "dev": "npx tsc --watch"
+    },
+    "author": "BJTMastermind",
+    "license": "GPL-2.0",
+    "devDependencies": {
+        "@types/node": "^20.11.25",
+        "typescript": "^5.4.2"
+    }
+}
