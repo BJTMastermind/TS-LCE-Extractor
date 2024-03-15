@@ -1,5 +1,5 @@
 export enum LCEPlatform {
     XBOX360,
-    PS3,
+    PLAYSTATION3,
     WIIU
 }
