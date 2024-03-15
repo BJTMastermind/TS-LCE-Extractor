@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { LCEPlatform } from "./lce_platform";
 import { exit } from "node:process";
+import { inflateSync } from "node:zlib";
+import { LCEPlatform } from "./lce_platform";
 
 export class SavegameExtractor {
     private data: DataView;
@@ -71,7 +72,9 @@ export class SavegameExtractor {
             case LCEPlatform.XBOX360: // XMemCompress
                 return src;
             case LCEPlatform.WIIU: // Zlib
-                return src;
+                let zlibData = src.slice(8);
+                let out: ArrayBuffer = inflateSync(zlibData).buffer;
+                return out;
             default: // PS3 - No Compression
                 return src;
         }
@@ -85,7 +88,7 @@ export class SavegameExtractor {
 }
 
 function main() {
-    let extractor: SavegameExtractor = new SavegameExtractor("./test_files/savegame-decompressed.dat", LCEPlatform.XBOX360);
+    let extractor: SavegameExtractor = new SavegameExtractor("./test_files/savegame.wii", LCEPlatform.WIIU);
     extractor.extractToMemory();
     extractor.writeToDisc("./extracted/");
 }
